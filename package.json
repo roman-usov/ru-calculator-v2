@@ -2,7 +2,6 @@
   "name": "template-project",
   "version": "1.0.0",
   "description": "!template-project",
-  "main": "src/script.js",
   "scripts": {
     "test": "jest --coverage",
     "start": "parcel index.html",
