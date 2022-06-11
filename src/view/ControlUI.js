@@ -1,7 +1,5 @@
 import { CALCULATOR } from '../config/config';
 
-// const calculatorEl = document.querySelector('.calculator-grid');
-
 export default class ControlUI {
   calculatorEl = document.querySelector('.calculator-grid');
 
@@ -34,6 +32,14 @@ export default class ControlUI {
         this.setSecondaryOperand();
         this.setOperator(value);
         this.resetPrimaryOperand();
+        handler(value);
+      }
+
+      if (
+        value === CALCULATOR.equal &&
+        this.secondaryOperandEl.textContent &&
+        this.operatorEl.textContent
+      ) {
         handler(value);
       }
 
@@ -71,6 +77,7 @@ export default class ControlUI {
   }
 
   setPrimaryOperand(value) {
+    console.log('value to set', value);
     const currentValue = this.primaryOperandEl.textContent;
     if (currentValue === '0' && value !== CALCULATOR.dot) {
       this.primaryOperandEl.textContent = value;
@@ -83,9 +90,7 @@ export default class ControlUI {
   }
 
   clearOperands() {
-    this.primaryOperandEl.dataset.primaryOperand = '';
     this.primaryOperandEl.textContent = '0';
-    this.secondaryOperandEl.dataset.secondaryOperand = '';
     this.secondaryOperandEl.textContent = '';
     this.operatorEl.textContent = '';
   }

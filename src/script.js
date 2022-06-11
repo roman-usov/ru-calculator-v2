@@ -1,6 +1,7 @@
 import Calculator from './data/Calculator';
 import ControlUI from './view/ControlUI';
 import { CALCULATOR } from './config/config';
+import SolveMath from './calculations/SolveMath';
 
 export const calculator = new Calculator();
 const controlUI = new ControlUI();
@@ -21,13 +22,27 @@ function getInput(data) {
       (operator) => operator === data
     );
     calculator.secondaryOperand = calculator.primaryOperand;
-    calculator.primaryOperand = '0';
+    calculator.resetPrimaryOperand();
     console.log(calculator);
   }
 
   if (data === CALCULATOR.delete) {
     calculator.delete();
     console.log(calculator);
+  }
+
+  if (data === CALCULATOR.equal) {
+    const result = SolveMath.calculate(
+      +calculator.primaryOperand,
+      calculator.operator,
+      +calculator.secondaryOperand
+    ).toString();
+    console.log(result);
+    calculator.reset();
+    calculator.primaryOperand = result;
+    console.log(calculator);
+    controlUI.clearOperands();
+    controlUI.setPrimaryOperand(result);
   }
 }
 

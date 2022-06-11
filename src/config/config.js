@@ -5,4 +5,9 @@ export const CALCULATOR = {
   delete: 'DEL',
   clear: 'AC',
   dot: '.',
+  equal: '=',
+  add: '+',
+  subtract: '-',
+  multiply: '*',
+  divide: '÷',
 };

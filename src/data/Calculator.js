@@ -1,4 +1,4 @@
-import { CALCULATOR } from '../config/config.js';
+import { CALCULATOR } from '../config/config';
 
 export default class Calculator {
   #primaryOperand;
@@ -8,13 +8,13 @@ export default class Calculator {
   #operator;
 
   constructor() {
-    this.#primaryOperand = '0';
+    this.#primaryOperand = '';
     this.#secondaryOperand = '';
     this.#operator = '';
   }
 
   reset() {
-    this.#primaryOperand = '0';
+    this.#primaryOperand = '';
     this.#secondaryOperand = '';
     this.#operator = '';
   }
@@ -27,18 +27,26 @@ export default class Calculator {
     }
   }
 
+  get primaryOperand() {
+    return this.#primaryOperand;
+  }
+
   set primaryOperand(value) {
-    if (this.#primaryOperand === '0') {
-      this.#primaryOperand = value;
-    } else if (value === '0') {
+    if (value === CALCULATOR.dot && /\./g.test(this.#primaryOperand)) return;
+
+    if (this.#primaryOperand === '') {
       this.#primaryOperand = value;
     } else {
       this.#primaryOperand += value;
     }
   }
 
-  get primaryOperand() {
-    return this.#primaryOperand;
+  resetPrimaryOperand() {
+    this.#primaryOperand = '';
+  }
+
+  get secondaryOperand() {
+    return this.#secondaryOperand;
   }
 
   set secondaryOperand(value) {
@@ -52,8 +60,12 @@ export default class Calculator {
     }
   }
 
-  get secondaryOperand() {
-    return this.#secondaryOperand;
+  resetSecondaryOperand() {
+    this.#secondaryOperand = '';
+  }
+
+  get operator() {
+    return this.#operator;
   }
 
   set operator(value) {
@@ -61,7 +73,7 @@ export default class Calculator {
     this.#operator = value;
   }
 
-  get operator() {
-    return this.#operator;
+  resetOperator() {
+    this.#operator = '';
   }
 }
