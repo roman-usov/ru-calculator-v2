@@ -22,7 +22,8 @@ function getInput(data) {
       (operator) => operator === data
     );
     calculator.secondaryOperand = calculator.primaryOperand;
-    calculator.resetPrimaryOperand();
+    // calculator.resetPrimaryOperand();
+    calculator.primaryOperand = data;
     console.log(calculator);
   }
 

@@ -61,21 +61,6 @@ export default class ControlUI {
     });
   }
 
-  setSecondaryOperand() {
-    this.secondaryOperandEl.textContent =
-      this.primaryOperandEl.textContent.slice(-1) === CALCULATOR.dot
-        ? this.primaryOperandEl.textContent.slice(0, -1)
-        : this.primaryOperandEl.textContent;
-  }
-
-  setOperator(value) {
-    this.operatorEl.textContent = value;
-  }
-
-  resetPrimaryOperand() {
-    this.primaryOperandEl.textContent = '0';
-  }
-
   setPrimaryOperand(value) {
     console.log('value to set', value);
     const currentValue = this.primaryOperandEl.textContent;
@@ -87,6 +72,21 @@ export default class ControlUI {
     ) {
       this.primaryOperandEl.textContent += value;
     }
+  }
+
+  resetPrimaryOperand() {
+    this.primaryOperandEl.textContent = '0';
+  }
+
+  setSecondaryOperand() {
+    this.secondaryOperandEl.textContent =
+      this.primaryOperandEl.textContent.slice(-1) === CALCULATOR.dot
+        ? this.primaryOperandEl.textContent.slice(0, -1)
+        : this.primaryOperandEl.textContent;
+  }
+
+  setOperator(value) {
+    this.operatorEl.textContent = value;
   }
 
   clearOperands() {

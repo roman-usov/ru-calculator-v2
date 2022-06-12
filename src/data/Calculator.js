@@ -1,17 +1,17 @@
 import { CALCULATOR } from '../config/config';
 
 export default class Calculator {
-  #primaryOperand;
+  #primaryOperand = '';
 
-  #secondaryOperand;
+  #secondaryOperand = '';
 
-  #operator;
+  #operator = '';
 
-  constructor() {
-    this.#primaryOperand = '';
-    this.#secondaryOperand = '';
-    this.#operator = '';
-  }
+  // constructor() {
+  //   this.#primaryOperand = '';
+  //   this.#secondaryOperand = '';
+  //   this.#operator = '';
+  // }
 
   reset() {
     this.#primaryOperand = '';
@@ -34,6 +34,11 @@ export default class Calculator {
   set primaryOperand(value) {
     if (value === CALCULATOR.dot && /\./g.test(this.#primaryOperand)) return;
 
+    if (CALCULATOR.operators.includes(value)) {
+      this.#primaryOperand = '';
+      return;
+    }
+
     if (this.#primaryOperand === '') {
       this.#primaryOperand = value;
     } else {
@@ -41,9 +46,9 @@ export default class Calculator {
     }
   }
 
-  resetPrimaryOperand() {
-    this.#primaryOperand = '';
-  }
+  // resetPrimaryOperand() {
+  //   this.#primaryOperand = '';
+  // }
 
   get secondaryOperand() {
     return this.#secondaryOperand;
@@ -60,9 +65,9 @@ export default class Calculator {
     }
   }
 
-  resetSecondaryOperand() {
-    this.#secondaryOperand = '';
-  }
+  // resetSecondaryOperand() {
+  //   this.#secondaryOperand = '';
+  // }
 
   get operator() {
     return this.#operator;
@@ -73,7 +78,7 @@ export default class Calculator {
     this.#operator = value;
   }
 
-  resetOperator() {
-    this.#operator = '';
-  }
+  // resetOperator() {
+  //   this.#operator = '';
+  // }
 }
