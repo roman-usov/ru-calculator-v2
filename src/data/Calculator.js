@@ -7,12 +7,6 @@ export default class Calculator {
 
   #operator = '';
 
-  // constructor() {
-  //   this.#primaryOperand = '';
-  //   this.#secondaryOperand = '';
-  //   this.#operator = '';
-  // }
-
   reset() {
     this.#primaryOperand = '';
     this.#secondaryOperand = '';
@@ -46,10 +40,6 @@ export default class Calculator {
     }
   }
 
-  // resetPrimaryOperand() {
-  //   this.#primaryOperand = '';
-  // }
-
   get secondaryOperand() {
     return this.#secondaryOperand;
   }
@@ -65,10 +55,6 @@ export default class Calculator {
     }
   }
 
-  // resetSecondaryOperand() {
-  //   this.#secondaryOperand = '';
-  // }
-
   get operator() {
     return this.#operator;
   }
@@ -77,8 +63,4 @@ export default class Calculator {
     if (this.#operator !== '') return;
     this.#operator = value;
   }
-
-  // resetOperator() {
-  //   this.#operator = '';
-  // }
 }
