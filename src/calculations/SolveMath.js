@@ -1,5 +1,5 @@
 import { add, multiply, divide, subtract, format } from 'mathjs';
-import { CALCULATOR } from '../config/config';
+import CALCULATOR from '../config-helpers/config';
 
 export default class SolveMath {
   static calculate(firstOperand, operator, secondOperand) {
