@@ -2,22 +2,29 @@
   "name": "template-project",
   "version": "1.0.0",
   "description": "!template-project",
+  "type": "module",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "--env=@happy-dom/jest-environment NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "parcel index.html",
     "build": "parcel build index.html --dist-dir ./dist",
-    "lint": "eslint src/script.js"
+    "lint": "eslint src/init.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
+    "babel-jest": "^28.1.1",
+    "cross-env": "^7.0.3",
+    "eslint-plugin-jest": "^26.5.3",
+    "happy-dom": "^5.3.0",
     "mathjs": "^10.6.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
-    "@babel/core": "^7.18.2",
+    "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
+    "@happy-dom/jest-environment": "^5.3.0",
     "eslint": "^8.17.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-node": "^4.1.0",
@@ -28,7 +35,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.5.0",
-    "jest": "^28.1.0",
+    "jest": "^28.1.1",
     "parcel": "^2.6.0",
     "prettier": "^2.6.2"
   }

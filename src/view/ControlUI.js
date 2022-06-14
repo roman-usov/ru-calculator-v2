@@ -2,26 +2,22 @@ import CALCULATOR from '../config-helpers/config';
 import { formatNumber, unformatNumber } from '../config-helpers/helpers';
 
 export default class ControlUI {
-  numberEls = document.querySelectorAll('[data-number]');
-
-  operatorEls = document.querySelectorAll('[data-operator]');
-
-  operatorEl = document.querySelector('.operator');
-
-  primaryOperandEl = document.querySelector('.primary-operand');
-
-  secondaryOperandEl = document.querySelector('.secondary-operand');
-
-  equalEl = document.querySelector('[data-equals]');
-
-  clearEl = document.querySelector('[data-all-clear]');
-
-  deleteEl = document.querySelector('[data-delete]');
+  constructor(element = document) {
+    this.numberEls = element.querySelectorAll('[data-number]');
+    this.operatorEls = element.querySelectorAll('[data-operator]');
+    this.operatorEl = element.querySelector('.operator');
+    this.primaryOperandEl = element.querySelector('.primary-operand');
+    this.secondaryOperandEl = element.querySelector('.secondary-operand');
+    this.equalEl = element.querySelector('[data-equals]');
+    this.clearEl = element.querySelector('[data-all-clear]');
+    this.deleteEl = element.querySelector('[data-delete]');
+  }
 
   addHandlerForNumberInput(handler) {
     this.numberEls.forEach((numberEl) => {
       numberEl.addEventListener('click', (e) => {
         const element = e.target;
+
         const isNumberEl = element.matches('[data-number]');
 
         if (!isNumberEl) return;
@@ -30,6 +26,7 @@ export default class ControlUI {
 
         if (CALCULATOR.digits.includes(value)) {
           handler(value);
+
           this.setPrimaryOperand(value);
         }
       });
@@ -48,10 +45,13 @@ export default class ControlUI {
 
         if (CALCULATOR.operators.includes(value)) {
           if (this.operatorEl.textContent !== '') return;
+
           this.setSecondaryOperand();
+
           this.setOperator(value);
-          // this.resetPrimaryOperand();
+
           this.setPrimaryOperand(value);
+
           handler(value);
         }
       });
@@ -61,6 +61,7 @@ export default class ControlUI {
   addHandlerForEqual(handler) {
     this.equalEl.addEventListener('click', (e) => {
       const element = e.target;
+
       const isEqualEl = element.matches('[data-equals]');
 
       if (!isEqualEl) return;
@@ -76,6 +77,7 @@ export default class ControlUI {
   addHandlerForClearInput(handler) {
     this.clearEl.addEventListener('click', (e) => {
       const element = e.target;
+
       const isClearEl = element.matches('[data-all-clear]');
 
       if (!isClearEl) return;
@@ -90,6 +92,7 @@ export default class ControlUI {
   addHandlerForDeleteInput(handler) {
     this.deleteEl.addEventListener('click', (e) => {
       const element = e.target;
+
       const isDeleteEl = element.matches('[data-delete]');
 
       if (!isDeleteEl) return;
@@ -101,20 +104,23 @@ export default class ControlUI {
           this.primaryOperandEl.textContent.slice(0, -1)
         );
         this.primaryOperandEl.textContent = formatNumber(newValue);
+
         handler(value);
       } else {
         this.primaryOperandEl.textContent = '0';
+
         handler(value);
       }
     });
   }
 
   setPrimaryOperand(value) {
-    console.log('value to set', value);
     const currentValue = this.primaryOperandEl.textContent;
+
     if (CALCULATOR.operators.includes(value)) {
       this.primaryOperandEl.textContent = '0';
     } else if (currentValue === '0' && value !== CALCULATOR.dot) {
+      // console.log('value before setting:', value);
       this.primaryOperandEl.textContent = formatNumber(value);
     } else if (
       (value === CALCULATOR.dot && !/\./g.test(currentValue)) ||
@@ -122,6 +128,7 @@ export default class ControlUI {
     ) {
       const newValue =
         unformatNumber(this.primaryOperandEl.textContent) + value;
+
       this.primaryOperandEl.textContent = formatNumber(newValue);
     }
   }
@@ -139,114 +146,9 @@ export default class ControlUI {
 
   clearOperands() {
     this.primaryOperandEl.textContent = '0';
+
     this.secondaryOperandEl.textContent = '';
+
     this.operatorEl.textContent = '';
   }
 }
-
-/*
-export default class ControlUI {
-  calculatorEl = document.querySelector('.calculator-grid');
-
-  primaryOperandEl = document.querySelector('.primary-operand');
-
-  secondaryOperandEl = document.querySelector('.secondary-operand');
-
-  operatorEl = document.querySelector('.operator');
-
-  addHandlerForNumberInput(handler) {}
-
-  addHandlerForOperatorInput(handler) {}
-
-  addHandlerForClearInput(handler) {}
-
-  addHandlerForDeleteInput(handler) {}
-
-  addHandlerForEqual;
-
-  addHandlerCalculatorInput(handler) {
-    this.calculatorEl.addEventListener('click', (e) => {
-      const element = e.target;
-      console.log(element);
-
-      const isButton = element.matches('button');
-
-      if (!isButton) return;
-
-      const value = element.textContent;
-
-      console.log('value', value);
-
-      if (CALCULATOR.digits.includes(value)) {
-        handler(value);
-        this.setPrimaryOperand(value);
-      }
-
-      if (CALCULATOR.operators.includes(value)) {
-        if (this.operatorEl.textContent !== '') return;
-        this.setSecondaryOperand();
-        this.setOperator(value);
-        this.resetPrimaryOperand();
-        handler(value);
-      }
-
-      if (
-        value === CALCULATOR.equal &&
-        this.secondaryOperandEl.textContent &&
-        this.operatorEl.textContent
-      ) {
-        handler(value);
-      }
-
-      if (value === CALCULATOR.delete) {
-        if (this.primaryOperandEl.textContent.length > 1) {
-          this.primaryOperandEl.textContent =
-            this.primaryOperandEl.textContent.slice(0, -1);
-          handler(value);
-        } else {
-          this.primaryOperandEl.textContent = '0';
-          handler(value);
-        }
-      }
-
-      if (value === CALCULATOR.clear) {
-        this.clearOperands();
-        handler(value);
-      }
-    });
-  }
-
-  setPrimaryOperand(value) {
-    console.log('value to set', value);
-    const currentValue = this.primaryOperandEl.textContent;
-    if (currentValue === '0' && value !== CALCULATOR.dot) {
-      this.primaryOperandEl.textContent = value;
-    } else if (
-      (value === CALCULATOR.dot && !/\./g.test(currentValue)) ||
-      value !== CALCULATOR.dot
-    ) {
-      this.primaryOperandEl.textContent += value;
-    }
-  }
-
-  resetPrimaryOperand() {
-    this.primaryOperandEl.textContent = '0';
-  }
-
-  setSecondaryOperand() {
-    this.secondaryOperandEl.textContent =
-      this.primaryOperandEl.textContent.slice(-1) === CALCULATOR.dot
-        ? this.primaryOperandEl.textContent.slice(0, -1)
-        : this.primaryOperandEl.textContent;
-  }
-
-  setOperator(value) {
-    this.operatorEl.textContent = value;
-  }
-
-  clearOperands() {
-    this.primaryOperandEl.textContent = '0';
-    this.secondaryOperandEl.textContent = '';
-    this.operatorEl.textContent = '';
-  }
-} */

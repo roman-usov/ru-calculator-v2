@@ -3,6 +3,8 @@ import CALCULATOR from '../config-helpers/config';
 
 export default class SolveMath {
   static calculate(firstOperand, operator, secondOperand) {
+    // console.log('firstOperand for math:', firstOperand);
+    // console.log('secondOperand for math:', secondOperand);
     let result;
     switch (operator) {
       case CALCULATOR.add:
@@ -20,6 +22,7 @@ export default class SolveMath {
       default:
         result = NaN;
     }
-    return format(result, { precision: 14 });
+
+    return parseFloat(result.toFixed(10));
   }
 }

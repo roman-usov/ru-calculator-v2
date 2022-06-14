@@ -9,7 +9,9 @@ export default class Calculator {
 
   reset() {
     this.#primaryOperand = '';
+
     this.#secondaryOperand = '';
+
     this.#operator = '';
   }
 
@@ -30,10 +32,13 @@ export default class Calculator {
 
     if (CALCULATOR.operators.includes(value)) {
       this.#primaryOperand = '';
+
       return;
     }
 
-    if (this.#primaryOperand === '') {
+    if (this.primaryOperand === '' && value === CALCULATOR.dot) {
+      this.#primaryOperand = `0${value}`;
+    } else if (this.#primaryOperand === '' || this.#primaryOperand === '0') {
       this.#primaryOperand = value;
     } else {
       this.#primaryOperand += value;
