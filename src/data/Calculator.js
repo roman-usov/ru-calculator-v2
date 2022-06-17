@@ -30,6 +30,12 @@ export default class Calculator {
   set primaryOperand(value) {
     if (value === CALCULATOR.dot && /\./g.test(this.#primaryOperand)) return;
 
+    if (value === CALCULATOR.dot && this.#primaryOperand === '0') {
+      this.#primaryOperand += value;
+
+      return;
+    }
+
     if (CALCULATOR.operators.includes(value)) {
       this.#primaryOperand = '';
 
@@ -53,11 +59,7 @@ export default class Calculator {
     const cleanValue =
       value.slice(-1) === CALCULATOR.dot ? value.slice(0, -1) : value;
 
-    if (this.#secondaryOperand === '') {
-      this.#secondaryOperand = cleanValue;
-    } else {
-      this.#secondaryOperand += cleanValue;
-    }
+    this.#secondaryOperand = cleanValue;
   }
 
   get operator() {

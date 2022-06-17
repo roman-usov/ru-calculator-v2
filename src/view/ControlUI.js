@@ -44,13 +44,7 @@ export default class ControlUI {
         const value = element.textContent;
 
         if (CALCULATOR.operators.includes(value)) {
-          if (this.operatorEl.textContent !== '') return;
-
-          this.setSecondaryOperand();
-
           this.setOperator(value);
-
-          this.setPrimaryOperand(value);
 
           handler(value);
         }
@@ -97,21 +91,22 @@ export default class ControlUI {
 
       if (!isDeleteEl) return;
 
-      const value = element.textContent;
+      this.deleteCharacter();
 
-      if (this.primaryOperandEl.textContent.length > 1) {
-        const newValue = unformatNumber(
-          this.primaryOperandEl.textContent.slice(0, -1)
-        );
-        this.primaryOperandEl.textContent = formatNumber(newValue);
-
-        handler(value);
-      } else {
-        this.primaryOperandEl.textContent = '0';
-
-        handler(value);
-      }
+      handler();
     });
+  }
+
+  deleteCharacter() {
+    if (this.primaryOperandEl.textContent.length > 1) {
+      const newValue = unformatNumber(
+        this.primaryOperandEl.textContent.slice(0, -1)
+      );
+
+      this.primaryOperandEl.textContent = formatNumber(newValue);
+    } else {
+      this.primaryOperandEl.textContent = '0';
+    }
   }
 
   setPrimaryOperand(value) {
@@ -120,7 +115,6 @@ export default class ControlUI {
     if (CALCULATOR.operators.includes(value)) {
       this.primaryOperandEl.textContent = '0';
     } else if (currentValue === '0' && value !== CALCULATOR.dot) {
-      // console.log('value before setting:', value);
       this.primaryOperandEl.textContent = formatNumber(value);
     } else if (
       (value === CALCULATOR.dot && !/\./g.test(currentValue)) ||
@@ -141,7 +135,13 @@ export default class ControlUI {
   }
 
   setOperator(value) {
+    if (this.operatorEl.textContent !== '') return;
+
     this.operatorEl.textContent = value;
+
+    this.setSecondaryOperand();
+
+    this.setPrimaryOperand(value);
   }
 
   clearOperands() {

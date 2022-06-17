@@ -32,13 +32,9 @@ export function init(element) {
       +calculator.secondaryOperand
     ).toString();
 
-    console.log('stringified result:', result);
-
     calculator.reset();
 
     calculator.primaryOperand = result;
-
-    console.log(calculator);
 
     controlUI.clearOperands();
 
@@ -47,12 +43,10 @@ export function init(element) {
 
   function clearOperands() {
     calculator.reset();
-    console.log('reset', calculator);
   }
 
   function deleteCharacter() {
     calculator.delete();
-    console.log('delete', calculator);
   }
 
   controlUI.addHandlerForNumberInput(getNumberInput);
@@ -69,5 +63,9 @@ export function init(element) {
     calculator,
     controlUI,
     clearOperands,
+    deleteCharacter,
+    getOperatorInput,
+    getNumberInput,
+    performCalculation,
   };
 }
