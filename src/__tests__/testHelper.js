@@ -1,8 +1,8 @@
 import { Window } from 'happy-dom';
-import { init } from '../init';
+import init from '../init';
 
 // import { htmlStr } from './DOM';
-// import Calculator from '../data/Calculator';
+// import Calculator from '../logic/Calculator';
 
 const window = new Window();
 export const { document } = window;
@@ -37,12 +37,4 @@ document.body.innerHTML = `
       </div>
 `;
 
-export const {
-  calculator,
-  controlUI,
-  clearOperands,
-  deleteCharacter,
-  getOperatorInput,
-  getNumberInput,
-  performCalculation,
-} = init(document);
+export const { calculator } = init(document);

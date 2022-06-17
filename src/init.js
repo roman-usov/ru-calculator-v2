@@ -1,71 +1,35 @@
-import Calculator from './data/Calculator';
-import ControlUI from './view/ControlUI';
-import CALCULATOR from './config-helpers/config';
-import SolveMath from './calculations/SolveMath';
+import Calculator from './logic/Calculator';
 
-export function init(element) {
-  const calculator = new Calculator();
-  const controlUI = new ControlUI(element);
+export default function init(element = document) {
+  const primaryOperandElement = element.querySelector('.primary-operand');
+  const secondaryOperandElement = element.querySelector('.secondary-operand');
+  const operatorElement = element.querySelector('.operator');
 
-  function getNumberInput(data) {
-    calculator.primaryOperand = data;
-    console.log('getNumberInput', calculator);
-  }
+  const calculator = new Calculator(
+    primaryOperandElement,
+    secondaryOperandElement,
+    operatorElement
+  );
 
-  function getOperatorInput(data) {
-    calculator.operator = CALCULATOR.operators.find(
-      (operator) => operator === data
-    );
-    console.log('getOperatorInput, operator', calculator);
+  element.addEventListener('click', (e) => {
+    if (e.target.matches('[data-all-clear]')) {
+      calculator.clear();
+    }
+  });
 
-    calculator.secondaryOperand = calculator.primaryOperand;
-    console.log('getOperatorInput, secondaryOperand', calculator);
+  element.addEventListener('click', (e) => {
+    if (e.target.matches('[data-delete]')) {
+      calculator.delete();
+    }
+  });
 
-    calculator.primaryOperand = data;
-    console.log('getOperatorInput, primaryOperand', calculator);
-  }
-
-  function performCalculation() {
-    const result = SolveMath.calculate(
-      +calculator.primaryOperand,
-      calculator.operator,
-      +calculator.secondaryOperand
-    ).toString();
-
-    calculator.reset();
-
-    calculator.primaryOperand = result;
-
-    controlUI.clearOperands();
-
-    controlUI.setPrimaryOperand(result);
-  }
-
-  function clearOperands() {
-    calculator.reset();
-  }
-
-  function deleteCharacter() {
-    calculator.delete();
-  }
-
-  controlUI.addHandlerForNumberInput(getNumberInput);
-
-  controlUI.addHandlerForOperatorInput(getOperatorInput);
-
-  controlUI.addHandlerForEqual(performCalculation);
-
-  controlUI.addHandlerForClearInput(clearOperands);
-
-  controlUI.addHandlerForDeleteInput(deleteCharacter);
+  element.addEventListener('click', (e) => {
+    if (e.target.matches('[data-number]')) {
+      calculator.primaryOperand = e.target.textContent;
+    }
+  });
 
   return {
     calculator,
-    controlUI,
-    clearOperands,
-    deleteCharacter,
-    getOperatorInput,
-    getNumberInput,
-    performCalculation,
   };
 }
