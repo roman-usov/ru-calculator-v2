@@ -5,11 +5,9 @@ name: tests
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
 
 jobs:
   build:
@@ -23,8 +21,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.running_tests }}
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
