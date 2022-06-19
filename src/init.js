@@ -15,20 +15,23 @@ export default function init(element = document) {
     if (e.target.matches('[data-all-clear]')) {
       calculator.clear();
     }
-  });
 
-  element.addEventListener('click', (e) => {
     if (e.target.matches('[data-delete]')) {
       calculator.delete();
     }
-  });
 
-  element.addEventListener('click', (e) => {
     if (e.target.matches('[data-number]')) {
       calculator.primaryOperand = e.target.textContent;
     }
-  });
 
+    if (e.target.matches('[data-operation]')) {
+      calculator.operator = e.target.textContent;
+    }
+
+    if (e.target.matches('[data-equals]')) {
+      calculator.evaluate();
+    }
+  });
   return {
     calculator,
   };

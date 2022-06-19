@@ -14,7 +14,7 @@ document.body.innerHTML = `
             <div data-secondary-operand class="secondary-operand"></div>
             <div data-operation class="operator"></div>
           </div>
-          <div data-primary-operand class="primary-operand">0</div>
+          <div data-primary-operand="0" class="primary-operand">0</div>
         </div>
         <button data-all-clear class="span-two">AC</button>
         <button data-delete>DEL</button>
@@ -24,9 +24,9 @@ document.body.innerHTML = `
         <button data-number>3</button>
         <button data-operation data-operator>*</button>
         <button data-number>4</button>
-        <button data-number>5</button>
-        <button data-number>6</button>
-        <button data-operation data-operator>+</button>
+        <button data-number class="five">5</button>
+        <button data-number= class="six">6</button>
+        <button data-operation data-operator class="plus">+</button>
         <button data-number>7</button>
         <button data-number>8</button>
         <button data-number>9</button>

@@ -1,10 +1,10 @@
 {
   "name": "template-project",
   "version": "1.0.0",
-  "description": "!template-project",
+  "description": "Calculator",
   "type": "module",
   "scripts": {
-    "test": "jest --coverage --env=@happy-dom/jest-environment NODE_OPTIONS=--experimental-vm-modules",
+    "test": "jest --coverage",
     "start": "parcel index.html",
     "build": "parcel build index.html --dist-dir ./dist",
     "lint": "eslint src/init.js"
